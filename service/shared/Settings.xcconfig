@@ -1,0 +1,11 @@
+//
+//  Settings.xcconfig
+//  service
+//
+//  Created by Francisco Trinidad Aranda on 04/12/22.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+BASE_URL = alb-dev-ekt-875108740.us-east-1.elb.amazonaws.com
