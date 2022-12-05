@@ -12,7 +12,7 @@ protocol ServiceProtocol {
 
 enum ServiceResponse {
     case failure
-    case successProducts(_ products: [Product])
+    case successProducts(_ products: ResultResponse)
 }
 
 
@@ -30,7 +30,7 @@ class Service: ServiceProtocol {
             }
             do {
                 let products = try JSONDecoder().decode(ProductsResponse.self, from: dataResult)
-                completion(.successProducts(products.resultado.productos))
+                completion(.successProducts(products.resultado))
             } catch {
                 completion(.failure)
             }

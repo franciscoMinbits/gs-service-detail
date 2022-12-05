@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ListViewControllerDelegate: AnyObject {
+    func onProductSelected(_ product: Product)
+}
+
 class ListViewController: UIViewController {
     lazy var viewModel: ProductsViewModel = {
         return ProductsViewModel()
@@ -14,6 +18,7 @@ class ListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    weak var delegate: ListViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,8 +26,9 @@ class ListViewController: UIViewController {
         setViewModel()
     }
     
-    func setup(with products : [Product]) {
+    func setup(with products : [Product], delegate: ListViewControllerDelegate? = nil) {
         self.viewModel = ProductsViewModel(with: products)
+        self.delegate = delegate
     }
     
     private func setUI() {
@@ -35,13 +41,12 @@ class ListViewController: UIViewController {
                 self?.tableView.reloadData()
             }
         }
-        
+
         viewModel.loading = { [weak self] isLoading in
             DispatchQueue.main.async {
                 self?.activityIndicator.isHidden = !isLoading
             }
         }
     }
-    
 }
 

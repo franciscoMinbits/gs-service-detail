@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension ListViewController: UITableViewDataSource {
+extension ListViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.products.count
@@ -21,5 +21,11 @@ extension ListViewController: UITableViewDataSource {
         let product = viewModel.products[indexPath.row]
         cell.setup(with: product)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let product = viewModel.products[indexPath.row]
+        self.navigationController?.popViewController(animated: true)
+        delegate?.onProductSelected(product)
     }
 }

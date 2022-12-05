@@ -14,6 +14,7 @@ final class ProductsViewModel {
     private(set) var products: [Product] = []
     var updatedDataClousure: (([Product])->())?
     var loading: ((Bool) -> Void)?
+    var category: String? = nil
     
     init(with products : [Product] = []) {
         self.products = products
@@ -26,8 +27,9 @@ final class ProductsViewModel {
             switch response {
             case .failure:
                 break
-            case .successProducts(let products):
-                self?.updatedDataClousure?(products)
+            case .successProducts(let result):
+                self?.category = result.categoria
+                self?.updatedDataClousure?(result.productos)
                 break
             }
         }
